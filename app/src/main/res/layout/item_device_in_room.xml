@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.josephpham.smarhome.viewmodel.DeviceModelView" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/img_device_in_room"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_margin="5dp"
+            app:civ_border_color="#000000"
+            app:civ_border_width="2dp"
+            android:src="@{viewModel.loadimg() == true ? @drawable/off: @drawable/on}"
+            android:onClick="@{() -> viewModel.onItemClick()}"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_deivce_in_room"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.name()}"
+                android:textSize="15sp"
+                android:layout_centerHorizontal="true"
+                android:autoSizeMaxTextSize="15sp"
+                android:autoSizeMinTextSize="8sp"
+                android:autoSizeTextType="uniform"
+                android:singleLine="false"/>
+
+            <ImageButton
+                android:id="@+id/pupomenu"
+                android:layout_width="10dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_more_vert_black_24dp"
+                android:textSize="15sp"
+                android:backgroundTint="@color/white"
+                android:onClick="@{viewModel::pupoMenuClick}"/>
+        </RelativeLayout>
+    </LinearLayout>
+</layout>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.josephpham.smarhome.adapter.ModeAdapter.ViewHolder" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgdevice"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:layout_marginLeft="16dp"
+                android:layout_alignParentTop="true"
+                app:error="@{@drawable/ic_device}"
+                app:imageUrl="@{viewModel.img}" />
+
+            <TextView
+                android:id="@+id/tvdevice"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginLeft="72dp"
+                android:layout_marginRight="16dp"
+                android:layout_toLeftOf="@+id/cbox"
+                android:text="@{viewModel.name}"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/on_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.onTime}"
+                android:textColor="@color/colorAccent"
+                android:onClick="@{viewModel::setOnTime}"
+                android:layout_toLeftOf="@+id/pupomenu"/>
+
+            <TextView
+                android:id="@+id/tv_on_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_toLeftOf="@+id/on_time"
+                android:text="on time:"
+                android:textColor="@color/colorAccent" />
+
+            <TextView
+                android:id="@+id/off_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/on_time"
+                android:text="@{viewModel.offTime}"
+                android:textColor="@color/colorAccent"
+                android:onClick="@{viewModel::setOffTime}"
+                android:layout_toLeftOf="@+id/pupomenu"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_toLeftOf="@+id/off_time"
+                android:layout_below="@+id/tv_on_time"
+                android:text="off time:"
+                android:textColor="@color/colorAccent" />
+
+            <ImageButton
+                android:id="@+id/pupomenu"
+                android:src="@drawable/ic_more_vert_black_24dp"
+                android:layout_width="20dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="16dp"
+                android:backgroundTint="@color/white"
+                android:onClick="@{viewModel::onClick}"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</layout>

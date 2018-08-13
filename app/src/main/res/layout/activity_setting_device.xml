@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.josephpham.smarhome.activity.SettingDeviceActivity" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".activity.SettingDeviceActivity">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:id="@+id/tvsetting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:text="setting key"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/on_off"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_below="@+id/tvsetting"
+                android:text="text"
+                android:textStyle="italic" />
+
+            <ToggleButton
+                android:id="@+id/toggleButton1"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="16dp"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/toggle_widget_background"
+                android:button="@null"
+                android:textOff=""
+                android:textOn="" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_speech"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:gravity="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/btn_add_key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:layout_gravity="right"
+            android:background="@drawable/btn"
+            android:text="add"
+            android:textColor="@color/white"
+            android:onClick="@{() -> viewModel.createKey()}"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/list_key"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/btn_speech"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/ic_keyboard_voice_black_24dp"
+                android:onClick="@{() -> viewModel.getSpeechInput()}"/>
+
+        </RelativeLayout>
+    </LinearLayout>
+</layout>

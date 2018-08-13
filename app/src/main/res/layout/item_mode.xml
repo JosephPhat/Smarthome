@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.josephpham.smarhome.adapter.FragmentModeAdapter.ViewHolder" />
+    </data>
+
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:paddingTop="8dip"
+        android:stretchColumns="1">
+
+        <TableRow>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgnotification"
+                android:layout_width="40sp"
+                android:layout_height="40sp"
+                android:layout_marginLeft="16dp"
+                android:src="@{viewModel.status == true ? @drawable/ic_add_alert_brown_24dp:@drawable/ic_add_alert_black_24dp}" />
+
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:paddingTop="8dip"
+                android:stretchColumns="1"
+                android:onClick="@{() -> viewModel.onClick()}">
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/text1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dip"
+                        android:layout_gravity="left|center_vertical"
+                        android:layout_weight="1"
+                        android:text="@{viewModel.name}"
+                        android:textColor="@color/child_expandable"
+                        android:textSize="17dip"
+                        android:textStyle="bold" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dip"
+                        android:layout_gravity="left|center_vertical"
+                        android:text="@{viewModel.time}"
+                        android:textColor="#000000"
+                        android:textSize="14dip" />
+                </TableRow>
+            </TableLayout>
+
+            <TableLayout>
+
+                <Switch
+                    android:id="@+id/pupomenu_room"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="left|center_vertical"
+                    android:src="@drawable/ic_more_vert_black_24dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="5dp"
+                    android:checked="@{viewModel.status == true ? true: false}"/>
+                <TextView
+                    android:id="@+id/rightcheck"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="16dp"
+                    android:text="@{viewModel.circle}"/>
+            </TableLayout>
+        </TableRow>
+    </TableLayout>
+</layout>

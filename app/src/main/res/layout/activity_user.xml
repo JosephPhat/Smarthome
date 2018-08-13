@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.josephpham.smarhome.viewmodel.UserViewModel" />
+        <variable
+            name="event"
+            type="com.example.josephpham.smarhome.activity.UserActivity"/>
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context=".activity.UserActivity">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbaruser"
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            android:background="@color/backgroud_room"
+            android:fitsSystemWindows="true"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsing"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                app:contentScrim="?attr/colorPrimary"
+                app:expandedTitleMarginEnd="64dp"
+                app:expandedTitleMarginStart="48dp"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/civimguser"
+                        android:layout_width="150dp"
+                        android:layout_height="170dp"
+                        android:layout_centerHorizontal="true"
+                        android:fitsSystemWindows="true"
+                        app:error="@{@drawable/profile}"
+                        app:imageUrl="@{viewModel.img()}"
+                        app:layout_collapseMode="parallax" />
+
+                    <TextView
+                        android:id="@+id/tvnameuser"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_below="@+id/civimguser"
+                        android:layout_centerHorizontal="true"
+                        android:text="@{viewModel.name()}"
+                        android:textColor="@color/white"
+                        android:textSize="30dp" />
+
+                    <TextView
+                        android:id="@+id/tvemailuser"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvnameuser"
+                        android:layout_centerHorizontal="true"
+                        android:text="@{viewModel.email()}"
+                        android:textColor="@color/white"
+                        android:textSize="15dp" />
+                </RelativeLayout>
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar_user"
+                    android:layout_width="match_parent"
+                    android:layout_height="?android:attr/actionBarSize"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/AppTheme.PopupOverlay" />
+            </android.support.design.widget.CollapsingToolbarLayout>
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp">
+
+                    <ImageView
+                        android:id="@+id/img1"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_add_location_blue_24dp" />
+
+                    <TextView
+                        android:id="@+id/tvdiachi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="56dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@{viewModel.address()}"
+                        android:textSize="20dp" />
+
+                    <ImageView
+                        android:id="@+id/update_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_more_vert_black_24dp"
+                        android:onClick="@{() -> event.openDialogChangeAddress()}"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp">
+
+                    <ImageView
+                        android:id="@+id/phonenumber"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_phone_blue" />
+
+                    <TextView
+                        android:id="@+id/tvphonenumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="56dp"
+                        android:layout_marginTop="10dp"
+                        android:inputType="phone"
+                        android:text="@{viewModel.phoneNumber()}"
+                        android:textSize="20dp" />
+
+                    <ImageView
+                        android:id="@+id/update_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_more_vert_black_24dp"
+                        android:onClick="@{() -> event.openDialogChangePhoneNumber()}"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp">
+
+                    <ImageView
+                        android:id="@+id/phonehome"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_home_phone_blue" />
+
+                    <TextView
+                        android:id="@+id/tvphonehome"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="56dp"
+                        android:layout_marginTop="10dp"
+                        android:inputType="phone"
+                        android:text="@{viewModel.homePhone()}"
+                        android:textSize="20dp" />
+
+                    <ImageView
+                        android:id="@+id/update_home"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_more_vert_black_24dp"
+                        android:onClick="@{() -> event.openDialogChangeHomePhoneNumber()}"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp">
+
+                    <ImageView
+                        android:id="@+id/dob"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_dob_blue" />
+
+                    <TextView
+                        android:id="@+id/tvdob"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="56dp"
+                        android:layout_marginTop="10dp"
+                        android:inputType="date"
+                        android:text="@{viewModel.dob()}"
+                        android:textSize="20dp" />
+
+                    <ImageView
+                        android:id="@+id/update_dob"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_more_vert_black_24dp"
+                        android:onClick="@{() -> event.dataPickerDialog()}"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_upload_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add_a_photo_while_24dp"
+            app:layout_anchor="@id/civimguser"
+            app:layout_anchorGravity="bottom|center"
+            android:onClick="@{() -> event.takePicture()}"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_mail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_margin"
+            android:layout_gravity="bottom|end"
+            android:src="@drawable/ic_email_while" />
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

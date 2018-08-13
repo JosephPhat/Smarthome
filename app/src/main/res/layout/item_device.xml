@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.josephpham.smarhome.adapter.ListDeviceAdapter.ViewHolder"/>
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgdevice"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_marginLeft="16dp"
+            android:layout_alignParentTop="true"
+            app:imageUrl="@{viewModel.img}"
+            app:error="@{@drawable/ic_device}"/>
+
+        <TextView
+            android:id="@+id/tvdevice"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginLeft="72dp"
+            android:layout_marginRight="16dp"
+            android:text="@{viewModel.name}"
+            android:textSize="25sp" />
+
+        <ImageView
+            android:id="@+id/cbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:layout_alignParentRight="true"
+            android:focusable="false"
+            android:src="@drawable/ic_more_vert_black_24dp"
+            android:onClick="@{viewModel::onClick}"/>
+    </RelativeLayout>
+</layout>

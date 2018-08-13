@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:id="@+id/addRoomLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="140dp"
+        android:layout_marginRight="26dp"
+        android:layout_marginEnd="26dp"
+        android:orientation="horizontal"
+        android:visibility="invisible">
+        <TextView
+            android:id="@+id/tvadddevice"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:text="add room"
+            />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/addRoom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_room"
+            android:backgroundTint="@color/white"
+            app:fabSize="mini"
+            android:clickable="true"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/addModeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="80dp"
+        android:layout_marginRight="26dp"
+        android:layout_marginEnd="26dp"
+        android:orientation="horizontal"
+        android:visibility="invisible">
+        <TextView
+            android:id="@+id/tvaddmode"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:text="add mode"
+            />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/addMode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_mode"
+            android:backgroundTint="@color/white"
+            app:fabSize="mini"
+            android:clickable="true"
+            />
+
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

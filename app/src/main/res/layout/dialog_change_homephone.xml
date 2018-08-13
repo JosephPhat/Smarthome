@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:padding="16dp">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_home_phone_blue"/>
+        <EditText
+            android:id="@+id/updatehomephone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:layout_marginLeft="56dp"
+            android:hint="home phone number"/>
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/submithomephone"
+        android:layout_gravity="right"
+        android:layout_marginRight="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="submit"
+        android:background="@drawable/btn"
+        android:textColor="@color/white"
+        />
+
+</LinearLayout>

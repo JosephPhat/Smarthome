@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#795548</color>
+    <color name="colorPrimaryDark">#5D4037</color>
+    <color name="colorAccent">#c26644</color>
+    <color name="child_expandable">#eab39f</color>
+    <color name="white">#ffffff</color>
+    <color name="backgroud_room">#a78e8e</color>
+    <color name="red">#ef0707</color>
+    <color name="black">#121111</color>
+</resources>

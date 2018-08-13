@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="itemRoom"
+            type="com.example.josephpham.smarhome.viewmodel.RoomViewModel"/>
+    </data>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgroom"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="10dp"
+            android:padding="4dp"
+            app:imageUrl="@{itemRoom.img()}"
+            app:error="@{@drawable/room}"
+            android:onClick="@{() -> itemRoom.onClick()}"
+         />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvroom"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:text="@{itemRoom.name()}"
+                android:textSize="15sp" />
+
+            <ImageButton
+                android:id="@+id/pupomenu_room"
+                android:layout_width="10dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_more_vert_black_24dp"
+                android:onClick="@{itemRoom::pupoMenuClick}"/>
+        </RelativeLayout>
+    </LinearLayout>
+</layout>
