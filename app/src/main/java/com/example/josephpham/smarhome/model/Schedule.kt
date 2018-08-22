@@ -1,6 +1,7 @@
 package com.example.josephpham.smarhome.model
 
 import android.databinding.ObservableInt
+import android.util.Log
 import org.json.JSONObject
 
 class  Schedule{

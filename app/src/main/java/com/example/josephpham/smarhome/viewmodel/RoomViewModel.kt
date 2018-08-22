@@ -54,14 +54,10 @@ class RoomViewModel : BaseObservable{
         popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item: MenuItem? ->
             when (item!!.itemId) {
                 R.id.delete -> {
-                    var token = DatabaseHandler(mContext).readData()
                     var mSocket = Connect.connect()
                     var json = JSONObject()
-                    json.put("token", token)
-                    var jsonsup = JSONObject()
-                    jsonsup.put("_id", id())
-                    jsonsup.put("isDeleteDevice", 0)
-                    json.put("data", jsonsup)
+                    json.put("_id", id())
+                    json.put("isDeleteDevice", 0)
                     mSocket.emit("client_send_delete_room", json)
                     mSocket.emit("client_send_room")
                 }

@@ -54,11 +54,10 @@ class AddDeviceInRoomDialogFragment : DialogFragment {
         val jsonArray = JSONArray(AddDeviceInRoomModeAdapter.ViewHolder.listDeviceSelectedAddRoomMode())
         json.put("device", jsonArray)
         val json2 = JSONObject()
-        json.put("id_room", id_room)
+        json.put("room", id_room)
         json2.put("id_room", id_room)
         mSocket.emit("client_send_add_device_in_room", json)
         mSocket.emit("client_send_device_in_room", json2)
-        Log.d("AAAA", jsonArray.toString())
         this.dismiss()
 
     }

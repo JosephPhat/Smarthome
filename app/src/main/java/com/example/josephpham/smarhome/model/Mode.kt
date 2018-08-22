@@ -4,6 +4,7 @@ import android.databinding.ObservableArrayList
 import android.databinding.ObservableBoolean
 import android.databinding.ObservableField
 import android.databinding.ObservableInt
+import android.util.Log
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -15,6 +16,7 @@ class Mode {
     var stoptime: ObservableInt = ObservableInt()
     var circle: ObservableArrayList<Int> = ObservableArrayList()
     var listModeDetail: ObservableArrayList<ModeDetail> = ObservableArrayList()
+
     constructor(id: String, mode_name: String, status: Boolean, starttime: Int, stoptime: Int) {
         this.id.set(id)
         this.mode_name.set(mode_name)
@@ -45,14 +47,41 @@ class Mode {
 
         }
     }
-    fun time(): String{
-        val startime = "" + this.starttime.get()/3600 + ":" + this.starttime.get()%3600/60
-        val offtime = "" + this.stoptime.get()/3600 + ":" + this.stoptime.get()%3600/60
+
+    fun time(): String {
+        var hhst = ""
+        var mmst = ""
+        var hhen = ""
+        var mmen = ""
+        if (this.starttime.get() / 3600 < 10) {
+            hhst = "0" + this.starttime.get() / 3600
+        } else {
+            hhst = "" + this.starttime.get() / 3600
+        }
+        if (this.starttime.get() % 3600 / 60 < 10) {
+            mmst = "0" + this.starttime.get() % 3600 / 60
+        } else {
+            mmst = "" + this.starttime.get() % 3600 / 60
+        }
+        val startime = hhst + ":" + mmst
+
+        if (this.stoptime.get() / 3600 < 10) {
+            hhen = "0" + this.stoptime.get() / 3600
+        } else {
+            hhen = "" + this.stoptime.get() / 3600
+        }
+        if (this.stoptime.get() % 3600 / 60 < 10) {
+            mmen = "0" + this.stoptime.get() % 3600 / 60
+        } else {
+            mmen = "" + this.stoptime.get() % 3600 / 60
+        }
+        val offtime = hhen + ":" + mmen
         return startime + "-" + offtime
     }
-    fun circleString(): String{
+
+    fun circleString(): String {
         val s = StringBuffer()
-        for (i in 0..this.circle.size-1){
+        for (i in 0..this.circle.size - 1) {
             s.append(this.circle.get(i))
             s.append("-")
         }

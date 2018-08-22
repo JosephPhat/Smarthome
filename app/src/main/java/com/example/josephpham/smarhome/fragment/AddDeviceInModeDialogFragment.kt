@@ -53,12 +53,9 @@ class AddDeviceInModeDialogFragment : DialogFragment {
         val json = JSONObject()
         val jsonArray = JSONArray(AddDeviceInRoomModeAdapter.ViewHolder.listDeviceSelectedAddRoomMode())
         json.put("device", jsonArray)
-        val json2 = JSONObject()
-        json.put("id_mode", id_mode)
-        json2.put("id_mode", id_mode)
+        json.put("mode", id_mode)
         mSocket.emit("client_send_add_device_in_mode", json)
-        mSocket.emit("client_send_device_in_mode", json2)
-        Log.d("AAAA", jsonArray.toString())
+        mSocket.emit("client_send_device_in_mode", id_mode)
         this.dismiss()
 
     }

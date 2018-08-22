@@ -22,7 +22,7 @@ import org.json.JSONObject
 
 
 class RoomActivity : AppCompatActivity() {
-    var listDeviceInRoom: ArrayList<Device>? = null
+    var listDeviceInRoom: ArrayList<Device>?= null
     var listDeviceNotRoom: ArrayList<Device>? = null
     var mSocket = Connect.connect()
     var binding: ActivityRoomBinding? = null
@@ -38,6 +38,9 @@ class RoomActivity : AppCompatActivity() {
         emit()
         mSocket.on("server_send_device_in_room", onretrieveDataDeviceInRoom)
         mSocket.on("server_send_device_no_room", onretrieveDeviceNotRoom)
+        mSocket.on("server_send_control_device", onretrieveControl)
+
+
 
     }
 
@@ -74,8 +77,8 @@ class RoomActivity : AppCompatActivity() {
         runOnUiThread {
             val data1 = args[0] as JSONObject
             try {
-                listDeviceInRoom = ArrayList()
                 val correct = data1.getBoolean("success")
+                listDeviceInRoom = ArrayList()
                 Loading.dismiss()
                 if (correct == true) {
                     val roomJson = data1.getJSONArray("result")
@@ -97,9 +100,39 @@ class RoomActivity : AppCompatActivity() {
             }
         }
     }
+    var onretrieveControl: Emitter.Listener = Emitter.Listener { args ->
+        runOnUiThread {
+            val data1 = args[0] as JSONObject
+            try {
+                val correct = data1.getBoolean("success")
+                Loading.dismiss()
+                if (correct == true) {
+                    val roomJson = data1.getJSONObject("result")
+                    val status = roomJson.getBoolean("status")
+                    val idDevice = roomJson.getString("device")
+                    for (i in 0..listDeviceInRoom!!.size-1){
+                        if(listDeviceInRoom!!.get(i).id.get().toString().equals(idDevice)){
+                            listDeviceInRoom!!.get(i).status.set(status)
+                        }
+                    }
+                    addList()
+
+                } else {
+                    val err = data1.getString("message")
+                    val intent = Intent(this@RoomActivity, LoginActivity::class.java)
+                    startActivity(intent)
+                    Toast.makeText(this, err.toString(), Toast.LENGTH_LONG).show()
+                }
+            } catch (e: JSONException) {
+
+            }
+        }
+    }
+
+
 
     fun addList() {
-        val adapter = RoomAdapter(listDeviceInRoom!!, this@RoomActivity)
+        val adapter = RoomAdapter(listDeviceInRoom!!, this@RoomActivity, id_room)
         binding!!.device.adapter = adapter
     }
 

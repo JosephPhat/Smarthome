@@ -41,7 +41,7 @@
                 android:id="@+id/on_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.onTime}"
+                android:text="@{viewModel.getOn()}"
                 android:textColor="@color/colorAccent"
                 android:onClick="@{viewModel::setOnTime}"
                 android:layout_toLeftOf="@+id/pupomenu"/>
@@ -60,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/on_time"
-                android:text="@{viewModel.offTime}"
+                android:text="@{viewModel.getOff()}"
                 android:textColor="@color/colorAccent"
                 android:onClick="@{viewModel::setOffTime}"
                 android:layout_toLeftOf="@+id/pupomenu"/>

@@ -69,7 +69,8 @@
                     android:src="@drawable/ic_more_vert_black_24dp"
                     android:layout_marginRight="16dp"
                     android:layout_marginTop="5dp"
-                    android:checked="@{viewModel.status == true ? true: false}"/>
+                    android:checked="@{viewModel.status == true ? true: false}"
+                    android:onCheckedChanged="@{() -> viewModel.checChanged()}"/>
                 <TextView
                     android:id="@+id/rightcheck"
                     android:layout_width="match_parent"

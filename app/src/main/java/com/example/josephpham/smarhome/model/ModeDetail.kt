@@ -1,6 +1,7 @@
 package com.example.josephpham.smarhome.model
 
 import android.databinding.ObservableField
+import android.util.Log
 import org.json.JSONObject
 
 class ModeDetail{
@@ -18,10 +19,10 @@ class ModeDetail{
 
     companion object {
         fun parseJson(data: JSONObject): ModeDetail {
-//            val id = data.getString("id_")
+            val id = data.getString("_id")
             val device = Device.parseJson(data.getJSONObject("device"))
             val schedule = Schedule.parseJson(data.getJSONObject("schedule"))
-            val modeDetail = ModeDetail("123", device, schedule)
+            val modeDetail = ModeDetail(id, device, schedule)
             return modeDetail
         }
         fun json(modeDetail: ModeDetail): JSONObject{

@@ -11,8 +11,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.josephpham.smarhome.R
 import com.example.josephpham.smarhome.activity.ModeActivity
+import com.example.josephpham.smarhome.connect.Connect
 import com.example.josephpham.smarhome.databinding.ItemModeBinding
 import com.example.josephpham.smarhome.model.Mode
+import org.json.JSONObject
 
 
 class FragmentModeAdapter : RecyclerView.Adapter<FragmentModeAdapter.ViewHolder> {
@@ -20,6 +22,8 @@ class FragmentModeAdapter : RecyclerView.Adapter<FragmentModeAdapter.ViewHolder>
 
     var modeList = ArrayList<Mode>()
     var context: Context
+    var socket = Connect.connect()
+
 
     constructor(context: Context, modeList: ArrayList<Mode>) {
         this.context = context
@@ -38,7 +42,6 @@ class FragmentModeAdapter : RecyclerView.Adapter<FragmentModeAdapter.ViewHolder>
     }
 
     override fun getItemCount(): Int {
-        Log.d("size", modeList.size.toString())
         return modeList.size
     }
 
@@ -76,9 +79,17 @@ class FragmentModeAdapter : RecyclerView.Adapter<FragmentModeAdapter.ViewHolder>
 
         fun onClick() {
             val intent = Intent(context, ModeActivity::class.java)
-
             intent.putExtra("id_mode", this.id.get().toString())
             context.startActivity(intent)
+        }
+        fun checChanged(){
+            val json = JSONObject()
+            json.put("status", !this.status.get())
+            json.put("_id", id.get())
+            socket.emit("client_send_update_mode", json)
+            socket.emit("client_send_mode")
+
+            Log.d("AAAA", json.toString())
         }
     }
 }

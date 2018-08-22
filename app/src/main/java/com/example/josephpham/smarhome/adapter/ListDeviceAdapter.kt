@@ -4,10 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.databinding.ObservableField
-import android.databinding.ObservableInt
 import android.support.v7.widget.PopupMenu
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -15,9 +13,7 @@ import android.view.ViewGroup
 import com.example.josephpham.smarhome.connect.Connect
 import com.example.josephpham.smarhome.model.Device
 import com.example.josephpham.smarhome.R
-import com.example.josephpham.smarhome.activity.SettingDeviceActivity
-import com.example.josephpham.smarhome.activity.UpdateDeviceActivity
-import com.example.josephpham.smarhome.databinding.ItemDeviceAddRoomModeBinding
+import com.example.josephpham.smarhome.activity.DeviceActivity
 import com.example.josephpham.smarhome.databinding.ItemDeviceBinding
 import java.util.*
 
@@ -72,6 +68,12 @@ class ListDeviceAdapter : RecyclerView.Adapter<ListDeviceAdapter.ViewHolder> {
             }
 
         }
+        fun click(){
+            val intent: Intent = Intent(contexts!!, DeviceActivity::class.java)
+            intent.putExtra("id_device", id.get())
+            contexts!!.startActivity(intent)
+
+        }
 
         fun onClick(view: View) {
             val popupMenu = PopupMenu(contexts!!, view)
@@ -80,18 +82,8 @@ class ListDeviceAdapter : RecyclerView.Adapter<ListDeviceAdapter.ViewHolder> {
                 when (item!!.itemId) {
                     R.id.delete -> {
                         val mSocket = Connect.connect()
-                        mSocket.emit("client_send_delete_device", id)
+                        mSocket.emit("client_send_delete_device", id.get())
                         mSocket.emit("client_send_all_device")
-                    }
-                    R.id.update -> {
-                        val intent: Intent = Intent(contexts!!, UpdateDeviceActivity::class.java)
-                        intent.putExtra("id_device", id)
-                        contexts!!.startActivity(intent)
-                    }
-                    R.id.settings ->{
-                        val intent: Intent = Intent(contexts!!, SettingDeviceActivity::class.java)
-                        intent.putExtra("id_device", id.get().toString())
-                        contexts!!.startActivity(intent)
                     }
                 }
 

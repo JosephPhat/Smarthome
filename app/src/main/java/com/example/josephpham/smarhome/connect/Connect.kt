@@ -9,8 +9,8 @@ class Connect {
         var msocket: Socket? = null
         fun connect(): Socket{
             if(msocket == null) {
-                msocket = IO.socket("https://smarthome2018.herokuapp.com/")
-//                msocket = IO.socket("http://192.168.1.240:3000")
+//                msocket = IO.socket("https://smarthome2018.herokuapp.com/")
+                msocket = IO.socket("http://192.168.114.10:3000")
                 msocket?.connect()
             }
 

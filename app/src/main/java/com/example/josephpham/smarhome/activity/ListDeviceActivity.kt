@@ -34,12 +34,8 @@ class ListDeviceActivity : AppCompatActivity() {
     }
 
     private fun emit() {
-        val bundle = intent.extras
-        val idUser = bundle.getString("id_user")
-        val json = JSONObject()
-        json.put("id_user", idUser)
         Loading.loading(this@ListDeviceActivity)
-        mSocket.emit("client_send_all_device", json)
+        mSocket.emit("client_send_all_device")
     }
 
     var onretrieveListDevice: Emitter.Listener = Emitter.Listener { args ->

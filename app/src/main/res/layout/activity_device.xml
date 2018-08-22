@@ -4,11 +4,12 @@
     <data>
 
         <variable
-            name="viewModel"
-            type="com.example.josephpham.smarhome.viewmodel.DeviceModelView" />
+            name="device"
+            type="com.example.josephpham.smarhome.activity.DeviceActivity" />
+
         <variable
-            name="updateViewModel"
-            type="com.example.josephpham.smarhome.activity.UpdateDeviceActivity"/>
+            name="viewModel"
+            type="com.example.josephpham.smarhome.viewmodel.DeviceModelView_" />
     </data>
 
     <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -45,13 +46,13 @@
                         android:layout_height="170dp"
                         android:layout_centerHorizontal="true"
                         android:fitsSystemWindows="true"
-                        app:imageUrl="@{viewModel.img()}"
                         app:error="@{@drawable/ic_device}"
+                        app:imageUrl="@{viewModel.img()}"
                         app:layout_collapseMode="parallax" />
                 </RelativeLayout>
 
                 <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar_update_device"
+                    android:id="@+id/toolbar_device"
                     android:layout_width="match_parent"
                     android:layout_height="?android:attr/actionBarSize"
                     app:layout_collapseMode="pin"
@@ -87,13 +88,24 @@
                             android:layout_height="48dp"
                             android:src="@drawable/ic_border_color_black_24dp" />
 
-                        <EditText
+                        <TextView
                             android:id="@+id/edt_name_device"
                             android:layout_width="match_parent"
                             android:layout_height="48dp"
                             android:layout_marginLeft="56dp"
                             android:text="@{viewModel.name()}"
-                            android:textColor="@color/colorAccent" />
+                            android:textSize="20dp"
+                            android:textColor="@color/colorAccent"
+                            android:gravity="center_vertical"/>
+
+                        <ImageView
+                            android:id="@+id/update_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/ic_more_vert_black_24dp"
+                            android:onClick="@{() -> device.updateName()}"/>
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -140,17 +152,80 @@
                             android:textSize="15dp" />
                     </RelativeLayout>
 
-                    <Button
-                        android:id="@+id/btn_add_device"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:layout_gravity="right"
-                        android:background="@drawable/btn"
-                        android:text="update"
-                        android:textColor="@color/white"
-                        android:onClick="@{() -> updateViewModel.update()}"/>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="8dp">
 
+                        <ImageView
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:src="@drawable/ic_settings_voice_brown_24dp" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:id="@+id/texton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginRight="20dp"
+                                android:text=" : On"
+                                android:textSize="20dp" />
+
+                            <TextView
+                                android:id="@+id/keyon"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="5dp"
+                                android:layout_toLeftOf="@+id/texton"
+                                android:text="@{viewModel.keyOn()}"
+                                android:textSize="20dp" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:src="@drawable/ic_more_vert_black_24dp"
+                                android:onClick="@{() -> device.changeKeyOn()}"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true">
+
+                            <TextView
+                                android:id="@+id/textoff"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginRight="20dp"
+                                android:text=" : Off"
+                                android:textSize="20dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:layout_marginRight="5dp"
+                                android:layout_toLeftOf="@+id/textoff"
+                                android:text="@{viewModel.keyOff()}"
+                                android:textSize="20dp" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginTop="10dp"
+                                android:src="@drawable/ic_more_vert_black_24dp"
+                                android:onClick="@{() -> device.changeKeyOff()}"/>
+                        </RelativeLayout>
+                    </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>

@@ -2,63 +2,49 @@ package com.example.josephpham.smarhome.fragment
 
 import android.app.Activity
 import android.content.Intent
-import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.josephpham.smarhome.adapter.FragmentRoomAdapter
 import com.example.josephpham.smarhome.R
 import com.example.josephpham.smarhome.activity.LoginActivity
 import com.example.josephpham.smarhome.connect.Connect
 import com.example.josephpham.smarhome.databinding.FragmentRoomBinding
-import com.example.josephpham.smarhome.model.Room
 import io.socket.client.Socket
 import io.socket.emitter.Emitter
 import org.json.JSONException
 import org.json.JSONObject
+import java.util.*
 
-class Tab_Room : Fragment() {
+class Tab_Weather : Fragment() {
     var activity: Activity? = null
     var binding: FragmentRoomBinding? = null
     var mSocket: Socket = Connect.connect()
-    var listRoom: ArrayList<Room>? = null
-
-
+    private var temp : String = ""
+    private var humi : String = ""
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_room, container, false)
-
-        return binding!!.root
+        val rootView = inflater.inflate(R.layout.fragment_weather, container, false)
+        return rootView
     }
-
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         activity = getActivity()
-        mSocket.emit("client_send_room")
-        mSocket.on("server_send_room", onretrieveDataRoom)
+        mSocket.on("server_send_weather", onretrieveData)
 
     }
-
-    var onretrieveDataRoom: Emitter.Listener = Emitter.Listener { args ->
+    var onretrieveData: Emitter.Listener = Emitter.Listener { args ->
         activity!!.runOnUiThread {
             val data = args[0] as JSONObject
             try {
                 var correct = data.getBoolean("success")
-                listRoom = ArrayList()
                 if (correct == true) {
-                    val result = data.getJSONArray("result")
-                    for (i in 0..result.length() - 1) {
-                        val jsonObject = result.getJSONObject(i)
-                        val room = Room.parseJson(jsonObject)
-                        listRoom!!.add(room)
+                    val json = JSONObject("result")
+                    temp = json.getString("temp")
+                    humi = json.getString("humi")
 
-                    }
-                    addList()
                 } else {
                     val err = data.getString("message")
                     val intent: Intent = Intent(activity, LoginActivity::class.java)
@@ -69,16 +55,18 @@ class Tab_Room : Fragment() {
             }
         }
     }
-    fun addList(){
-        if (activity != null) {
-            if (listRoom != null) {
-                val adapter = FragmentRoomAdapter(activity as FragmentActivity, listRoom!!)
-                binding!!.listRoom.adapter = adapter
-            } else {
-                listRoom = ArrayList()
-                val adapter = FragmentRoomAdapter(activity as FragmentActivity, listRoom!!)
-                binding!!.listRoom.adapter = adapter
-            }
-        }
+    fun getTemp(): String{
+        return this.getTemp()
     }
+    fun getHumi(): String{
+        return this.humi
+    }
+    fun getCalendar(): String{
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = System.currentTimeMillis()
+        val time = "" + calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE) + "" + calendar.get(Calendar.DAY_OF_WEEK) + ", " + calendar.get(Calendar.DAY_OF_MONTH) +  calendar.get(Calendar.MONTH) +  calendar.get(Calendar.YEAR)
+        return time
+
+    }
+
 }

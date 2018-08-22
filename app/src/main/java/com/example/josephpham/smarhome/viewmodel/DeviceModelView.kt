@@ -1,29 +1,41 @@
 package com.example.josephpham.smarhome.viewmodel
 
 import android.content.Context
-import android.content.Intent
 import android.databinding.BaseObservable
 import android.view.MenuItem
 import android.view.View
 import android.widget.PopupMenu
 import com.example.josephpham.smarhome.R
-import com.example.josephpham.smarhome.activity.SettingDeviceActivity
+import com.example.josephpham.smarhome.connect.Connect
 import com.example.josephpham.smarhome.model.Device
+import org.json.JSONObject
 
-class DeviceModelView(var context: Context, var device: Device) : BaseObservable() {
-    fun img(): String{
+class DeviceModelView(var context: Context, var device: Device, var id: String) : BaseObservable() {
+    var mSocket = Connect.connect()
+
+    fun img(): String {
         return this.device.deviceDetail.get()!!.img.get().toString()
     }
-    fun name(): String{
+
+    fun name(): String {
         return this.device.device_name.get().toString()
     }
-    fun typeDevice(): String{
+
+    fun typeDevice(): String {
         return this.device.deviceDetail.get()!!.name.get().toString()
     }
-    fun price(): String{
+
+    fun price(): String {
         return this.device.deviceDetail.get()!!.price.get().toString()
     }
-    fun loadimg(): Boolean{
+    fun keyOn(): String{
+        return this.device.keyOnOff.get()!!.on.toString()
+    }
+    fun keyOff(): String{
+        return this.device.keyOnOff.get()!!.on.toString()
+    }
+
+    fun loadimg(): Boolean {
         if (device.deviceDetail.get()!!.type.get() == 1) {//id_device = 0 laf thiet bi bat tac
             if (device.status.get() == false) {
                 return false
@@ -33,22 +45,28 @@ class DeviceModelView(var context: Context, var device: Device) : BaseObservable
         }
         return true
     }
-    fun onItemClick(){
+
+    fun onItemClick() {
+        val json = JSONObject()
+        json.put("_id", this.device.id.get())
+        mSocket.emit("control-device", json)
+        val json1 = JSONObject()
+        json1.put("id_room", this.id)
+
 
     }
-    fun pupoMenuClick(view: View){
+
+    fun pupoMenuClick(view: View) {
         val popupMenu = PopupMenu(context, view)
-        popupMenu.menuInflater.inflate(R.menu.popup_menu_item_device, popupMenu.menu)
+        popupMenu.menuInflater.inflate(R.menu.popup_menu_item_device_in_room, popupMenu.menu)
         popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item: MenuItem? ->
             when (item!!.itemId) {
                 R.id.delete -> {
-                }
-                R.id.update -> {
-                }
-                R.id.settings -> {
-                    val intent: Intent = Intent(context, SettingDeviceActivity::class.java)
-                    intent.putExtra("id", device.id.get())
-                    context.startActivity(intent)
+                    mSocket.emit("client_send_remove_device_in_room", this.device.id.get().toString())
+                    val json = JSONObject()
+                    json.put("id_room", this.id)
+                    mSocket.emit("client_send_device_in_room", json)
+
                 }
             }
 

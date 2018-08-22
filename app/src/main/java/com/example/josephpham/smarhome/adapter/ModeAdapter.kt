@@ -3,8 +3,10 @@ package com.example.josephpham.smarhome.adapter
 import android.content.Context
 import android.databinding.DataBindingUtil
 import android.databinding.ObservableField
+import android.databinding.ObservableInt
 import android.support.v7.widget.PopupMenu
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -58,8 +60,8 @@ class ModeAdapter : RecyclerView.Adapter<ModeAdapter.ViewHolder> {
         var binding: ItemDeviceInModeBinding
         val img: ObservableField<String> = ObservableField()
         val name: ObservableField<String> = ObservableField()
-        val onTime: ObservableField<String> = ObservableField()
-        val offTime: ObservableField<String> = ObservableField()
+        val onTime: ObservableInt = ObservableInt()
+        val offTime: ObservableInt = ObservableInt()
         val id: ObservableField<String> = ObservableField()
         var schedule: Schedule? = null
 
@@ -74,16 +76,16 @@ class ModeAdapter : RecyclerView.Adapter<ModeAdapter.ViewHolder> {
                 binding.viewModel = this
                 this.name.set(name)
                 this.img.set(img)
-                this.onTime.set(schedule.ontime.get().toString())
-                this.offTime.set(schedule.offtime.get().toString())
+                this.onTime.set(schedule.ontime.get())
+                this.offTime.set(schedule.offtime.get())
                 this.schedule = schedule
                 this.id.set(id)
 
             } else {
                 this.name.set(name)
                 this.img.set(img)
-                this.onTime.set(schedule.ontime.get().toString())
-                this.offTime.set(schedule.offtime.get().toString())
+                this.onTime.set(schedule.ontime.get())
+                this.offTime.set(schedule.offtime.get())
                 this.schedule = schedule
                 this.id.set(id)
 
@@ -92,7 +94,7 @@ class ModeAdapter : RecyclerView.Adapter<ModeAdapter.ViewHolder> {
         }
 
         fun setOnTime(view: View) {
-            val time = TimePickerFragment(view, this.schedule!!, true)
+            val time = TimePickerFragment(view, this.schedule!!, true, id.get().toString())
             time.show((context as ModeActivity).supportFragmentManager, "time")
         }
 
@@ -100,9 +102,39 @@ class ModeAdapter : RecyclerView.Adapter<ModeAdapter.ViewHolder> {
             if (schedule!!.ontime.get() == 0) {
                 Toast.makeText(context, "you haven't choose on time", Toast.LENGTH_SHORT).show()
             } else {
-                val time = TimePickerFragment(view, this.schedule!!, false)
+                val time = TimePickerFragment(view, this.schedule!!, false, id.get().toString())
                 time.show((context as ModeActivity).supportFragmentManager, "time")
             }
+        }
+
+        fun getOn(): String {
+            var hh = ""
+            var mm = ""
+            if (this.onTime.get() / 3600 < 10) {
+                hh = "0" + this.onTime.get() / 3600
+            } else {
+                hh = "" + this.onTime.get() / 3600
+            }
+            if (this.onTime.get() % 3600 / 60 < 10) {
+                mm = "0" + this.onTime.get() % 3600 / 60
+            } else {
+                mm = "" + this.onTime.get() % 3600 / 60
+            }
+            val time = hh + ":" + mm
+            return time
+        }
+
+        fun getOff(): String {
+            var hh = ""
+            var mm = ""
+            if (this.offTime.get() / 3600 < 10) {
+                hh = "0" + this.offTime.get() / 3600
+            }
+            if (this.offTime.get() % 3600 / 60 < 10) {
+                mm = "0" + this.offTime.get() % 3600 / 60
+            }
+            val time = hh + ":" + mm
+            return time
         }
 
         fun onClick(view: View) {
@@ -112,13 +144,8 @@ class ModeAdapter : RecyclerView.Adapter<ModeAdapter.ViewHolder> {
                 when (item!!.itemId) {
                     R.id.delete -> {
                         val mSocket = Connect.connect()
-                        val json = JSONObject()
-                        json.put("idDeviceDetail", id)
-                        json.put("id_mode", id_mode)
-                        val json2 = JSONObject()
-                        json2.put("id_mode", id_mode)
-                        mSocket.emit("client_send_delete_device_in_mode", json)
-                        mSocket.emit("client_send_device_in_mode", json2)
+                        mSocket.emit("client_send_delete_device_in_mode", id.get().toString())
+                        mSocket.emit("client_send_device_in_mode", id_mode)
                     }
                 }
 
